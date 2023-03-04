@@ -8,6 +8,11 @@
             <input placeholder="Arcseconds" id="arcsec">
             <div class="row"><h1>Pixel Error: </h1><h1 class="value" id="pixel"></h1></div>
             <div class="row"><h1>Ground Distance</h1><h1 class="value" id="gd"></h1></div>
+            <div>
+                <h2>Default Values</h2>
+                <div class="row"><h2>Orbit (km): </h2><input id="orbit" placeholder="500"></div>
+                <div class="row"><h2>Pixel width (m): </h2><input id="pixelDist" placeholder="90"></div>
+            </div>
         </div>
     </body>
 
@@ -26,6 +31,12 @@
             border: none;
             border-bottom: 1px solid black;
             outline: none;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 400;
         }
 
         .value {
@@ -40,30 +51,17 @@
     </style>
 
     <script>
-        /* Python
-        arcsec = 200
-
-        import math
-
-        deg = arcsec / 3600
-
-        rad = math.radians(deg)
-
-        orbit = 500000
-
-        dist = orbit * math.tan(rad)
-
-        print(dist)
-        print(dist / 90)
-        */
         function updateResult() {
             var arcsec = document.getElementById("arcsec").value ?? 200;
+            var orbit = document.getElementById("orbit").value * 1000;
+            orbit = orbit == 0 ? 500000 : orbit;
+            var pixelDist = document.getElementById("pixelDist").value;
+            pixelDist = pixelDist == 0 ? 90 : pixelDist;
+            
             var deg = arcsec / 3600;
             var rad = deg * (Math.PI / 180);
-            console.log(rad);
-            var orbit = 500000;
             var dist = orbit * Math.tan(rad);
-            var dist2 = dist / 90;
+            var dist2 = dist / pixelDist;
             dist = Math.round(dist * 100) / 100;
             dist2 = Math.round(dist2 * 100) / 100;
             document.getElementById("pixel").innerHTML = dist2;
@@ -71,5 +69,7 @@
         }
 
         document.getElementById("arcsec").addEventListener("input", updateResult);
+        document.getElementById("orbit").addEventListener("input", updateResult);
+        document.getElementById("pixelDist").addEventListener("input", updateResult);
     </script>
 </html>
