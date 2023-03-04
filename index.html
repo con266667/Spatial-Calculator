@@ -1,3 +1,75 @@
 <html>
-    <input placeholder="Arcseconds">
+    <head>
+        <!--Inter from rsms-->
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    </head>
+    <body>
+        <div class="main">
+            <input placeholder="Arcseconds" id="arcsec">
+            <div class="row"><h1>Pixel Error: </h1><h1 class="value" id="pixel"></h1></div>
+            <div class="row"><h1>Ground Distance</h1><h1 class="value" id="gd"></h1></div>
+        </div>
+    </body>
+
+    <style>
+        .main {
+            width: 70vw;
+            margin-left: 15vw;
+            font-family: 'Inter';
+            padding: 2em;
+        }
+
+        input {
+            width: 100%;
+            height: 50px;
+            font-size: 30px;
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+        }
+
+        .value {
+            font-weight: 400;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    </style>
+
+    <script>
+        /* Python
+        arcsec = 200
+
+        import math
+
+        deg = arcsec / 3600
+
+        rad = math.radians(deg)
+
+        orbit = 500000
+
+        dist = orbit * math.tan(rad)
+
+        print(dist)
+        print(dist / 90)
+        */
+        function updateResult() {
+            var arcsec = document.getElementById("arcsec").value ?? 200;
+            var deg = arcsec / 3600;
+            var rad = deg * (Math.PI / 180);
+            console.log(rad);
+            var orbit = 500000;
+            var dist = orbit * Math.tan(rad);
+            var dist2 = dist / 90;
+            dist = Math.round(dist * 100) / 100;
+            dist2 = Math.round(dist2 * 100) / 100;
+            document.getElementById("pixel").innerHTML = dist2;
+            document.getElementById("gd").innerHTML = dist + ' m';
+        }
+
+        document.getElementById("arcsec").addEventListener("input", updateResult);
+    </script>
 </html>
