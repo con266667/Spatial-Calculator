@@ -11,7 +11,7 @@
             <div>
                 <h2>Default Values</h2>
                 <div class="row"><h2>Orbit (km): </h2><input id="orbit" placeholder="500"></div>
-                <div class="row"><h2>Pixel width (m): </h2><input id="pixelDist" placeholder="90"></div>
+                <div class="row"><h2>Pixel width (m): </h2><input id="pixelDist" placeholder="82.5"></div>
             </div>
         </div>
     </body>
@@ -56,8 +56,8 @@
             var orbit = document.getElementById("orbit").value * 1000;
             orbit = orbit == 0 ? 500000 : orbit;
             var pixelDist = document.getElementById("pixelDist").value;
-            pixelDist = pixelDist == 0 ? 90 : pixelDist;
-            
+            pixelDist = pixelDist == 0 ? 82.5 : pixelDist;
+
             var deg = arcsec / 3600;
             var rad = deg * (Math.PI / 180);
             var dist = orbit * Math.tan(rad);
